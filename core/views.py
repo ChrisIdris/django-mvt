@@ -108,7 +108,6 @@ def edit_course(request, course_id):
     
     if request.method == "POST":
         course.name = request.POST.get("name")
-        course.code = request.POST.get("code")
         course.description = request.POST.get("description")
         course.save()
         return redirect("course_list")
