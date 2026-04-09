@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Student Detail{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="mb-0">{{ student.name }}</h1>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>Email:</strong> {{ student.email }}</p>
+                    <p><strong>Course:</strong> {{ student.course }}</p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Grade:</strong> {{ student.grade }}</p>
+                    <p><strong>Status:</strong> {% if student.is_active %}Active{% else %}Inactive{% endif %}</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <a href="{% url 'edit_student' student.id %}" class="btn btn-primary">Edit Student</a>
+                <a href="{% url 'student_list' %}" class="btn btn-secondary ml-2">Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+    
+{% comment %}
+TODO:
+- Extend base.html
+- Display all the student's fields: name, email, course, grade
+- Add a "Back to list" link using {% url 'student_list' %}
+-Add details from the student object passed in as 'student'
+-Add a link to edit this student using {% url 'edit_student' student.id %}
+{% endcomment %}

@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Student{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="mb-0">Edit Student</h1>
+            <small class="text-muted">{{ student.name }}</small>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ student.name }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ student.email }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="course">Course</label>
+                    <select class="form-control" id="course" name="course" required>
+                        <option value="">-- Select a course --</option>
+                        {% for course in courses %}
+                            <option value="{{ course.code }}" {% if course.code == student.course.code %}selected{% endif %}>
+                                {{ course }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="grade">Grade</label>
+                    <select class="form-control" id="grade" name="grade" required>
+                        <option value="A" {% if student.grade == 'A' %}selected{% endif %}>A</option>
+                        <option value="B" {% if student.grade == 'B' %}selected{% endif %}>B</option>
+                        <option value="C" {% if student.grade == 'C' %}selected{% endif %}>C</option>
+                        <option value="D" {% if student.grade == 'D' %}selected{% endif %}>D</option>
+                        <option value="F" {% if student.grade == 'F' %}selected{% endif %}>F</option>
+                        <option value="N/A" {% if student.grade == 'N/A' %}selected{% endif %}>N/A</option>
+                    </select>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Apply Changes</button>
+                    <a href="{% url 'student_list' %}" class="btn btn-secondary ml-2">Cancel</a>
+                    
+                </div>
+                <a href="{% url 'delete_student' student.id %}" class="btn btn-danger ml-2">Delete Student</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

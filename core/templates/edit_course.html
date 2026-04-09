@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Course{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="mb-0">Edit Course</h1>
+            <small class="text-muted">Code: {{ course.code }}</small>
+        </div>
+        <div class="card-body">
+            <form method="POST">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <label for="name" class="textarea-label">Course Name</label>
+                    <input type="text" class="form-control" id="name" name="name" value="{{ course.name }}" required>
+                </div>
+
+                <div class="form-group position-relative">
+                    <label for="description" class="textarea-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="4">{{ course.description }}</textarea>
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary">Apply Changes</button>
+                    <a href="{% url 'course_list' %}" class="btn btn-secondary ml-2">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!-- about.html -->
+{% extends 'base.html' %}
+ 
+{% block title %}About{% endblock %}
+ 
+{% block content %}
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="mb-0">About this page</h1>
+        </div>
+        <div class="card-body">
+            <p>This project demonstrates a simple student management platform built by Christoffer El Idrissi.</p>
+            <p>It includes student and course management features, list views, detail pages, and basic Data management operations.</p>
+            <div class="mt-4">
+                <a href="{% url 'student_list' %}" class="btn btn-primary">Browse Students</a>
+                <a href="{% url 'course_list' %}" class="btn btn-secondary ml-2">Browse Courses</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
