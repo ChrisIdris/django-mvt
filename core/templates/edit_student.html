@@ -38,6 +38,7 @@
                 <div class="form-group">
                     <label for="grade">Grade</label>
                     <select class="form-control" id="grade" name="grade" required>
+                        <option value="A+"{% if student.grade == 'A+' %}selected{% endif %}>A+</option>
                         <option value="A" {% if student.grade == 'A' %}selected{% endif %}>A</option>
                         <option value="B" {% if student.grade == 'B' %}selected{% endif %}>B</option>
                         <option value="C" {% if student.grade == 'C' %}selected{% endif %}>C</option>
