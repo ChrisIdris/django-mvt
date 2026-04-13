@@ -11,15 +11,33 @@
     <nav class="navbar">
         <div class="container">
             <div class="navbar-nav">
-                <a class="nav-link" href="{% url 'home' %}">Home</a>
-                <a class="nav-link" href="{% url 'student_list' %}">Students</a>
+                <a class="nav-link" href="{% url 'home' %}">Home</a>                    
+                {% if user.is_authenticated %}
+                    <span class="nav-link">Hello, {{ user.username }}!</span>
+                    <span class="nav-link">Role: {% if user.is_staff %}Admin{% else %}Viewer{% endif %}</span>
+                     <a class="nav-link" href="{% url 'student_list' %}">Students</a>
                 <a class="nav-link" href="{% url 'course_list' %}">Courses</a>
+                    <a class="nav-link" href="{% url 'change_password' %}">Change Password</a>
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                {% else %}
                 <a class="nav-link" href="{% url 'about' %}">About</a>
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                    <a class="nav-link" href="{% url 'register' %}">Register</a>
+                {% endif %}
+                
             </div>
         </div>
     </nav>
 
     <main>
+        {% if messages %}
+            <div class="container mt-4">
+            {% for message in messages %}
+                <div class="alert alert-success">{{ message }}</div>
+            {% endfor %}
+            </div>
+        {% endif %}
         {% block content %}{% endblock %}
     </main>
 </body>

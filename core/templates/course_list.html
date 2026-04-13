@@ -30,7 +30,9 @@
                             <td>{{ course.description|truncatechars:50|default:"No description" }}</td>
                             <td>
                                 <a href="{% url 'course_detail' course.id %}" class="btn btn-info btn-sm">View</a>
+                                {% if can_edit_courses %}
                                 <a href="{% url 'edit_course' course.id %}" class="btn btn-primary btn-sm ml-1">Edit</a>
+                                {% endif %}
                             </td>
                         </tr>
                         {% endfor %}

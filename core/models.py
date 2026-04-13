@@ -47,6 +47,7 @@ class Student(models.Model):
     is_active = models.BooleanField(default=True)
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="students", default=None)
     created_at = models.DateTimeField(auto_now_add=True)
+    created_by = models.CharField(max_length=100, default="system")
 
     def __str__(self):
         return self.name

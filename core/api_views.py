@@ -1,6 +1,7 @@
 from core.serializers import CourseSerializer
 from core.serializers import StudentSerializer
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Q
 from .models import Course, Student
@@ -38,28 +39,37 @@ def apply_student_filters(queryset, query_params):
 class CourseListCreateAPIView(generics.ListCreateAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    permission_classes = [IsAuthenticated]
 
 class CourseRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    permission_classes = [IsAuthenticated]
 
 #---Student Endpoints---#
 class StudentListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = StudentSerializer
     pagination_class = StudentPagination
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         queryset = Student.objects.all()
         return apply_student_filters(queryset, self.request.query_params)
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user.username)
+
 class StudentRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    permission_classes = [IsAuthenticated]
 
 #---Additional API Views---#
 class CourseStudentsAPIView(generics.ListAPIView):
     serializer_class = StudentSerializer
     pagination_class = StudentPagination
+    permission_classes = [IsAuthenticated]
+
 
     def get_queryset(self):
         course_id = self.kwargs['course_id']

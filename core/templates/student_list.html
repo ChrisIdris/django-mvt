@@ -49,6 +49,10 @@
                             <td>{{ student.grade }}</td>
                             <td>
                                 <a href="{% url 'student_detail' student.id %}" class="btn btn-info btn-sm">View</a>
+                                {% if can_manage_students %}
+                                <a href="{% url 'edit_student' student.id %}" class="btn btn-secondary btn-sm">Edit Student</a>
+                                <a href="{% url 'delete_student' student.id %}" class="btn btn-danger btn-sm">Remove Student</a>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
@@ -57,7 +61,9 @@
                         <td colspan="5" class="text-center">No students found.</td>
                     </tr>
                 {% endif %}
+                {% if can_manage_students %}
                 <a href="{% url 'add_student' %}" class="btn btn-secondary">Add Student </a>
+                {% endif %}
                 <a href="{% url 'student_list' %}" class="btn btn-secondary">Reset Filters</a>
             </tbody>
         </table>
