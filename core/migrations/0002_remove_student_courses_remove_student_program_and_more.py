@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='student',
             name='grade',
-            field=models.CharField(default='N/A', max_length=2),
+            field=models.CharField(default='N/A', max_length=3),
         ),
         migrations.AlterField(
             model_name='student',
